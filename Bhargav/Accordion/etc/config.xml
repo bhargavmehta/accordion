@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<modules>
+		<Bhargav_Accordion>
+			<version>0.0.1</version>
+		</Bhargav_Accordion>
+	</modules>
+	<global>
+		<models>
+			<bhargav_accordion>
+				<resourceModel>bhargav_accordion_resource</resourceModel>
+			</bhargav_accordion>
+			<bhargav_accordion_resource>
+				<entities>
+					<accordion>
+						<table>bhargav_accordion_accordion</table>
+					</accordion>
+			</entities>
+			</bhargav_accordion_resource>
+		</models>
+		<resources>
+			<bhargav_accordion_setup>
+				<setup>
+					<module>Bhargav_Accordion</module>
+					<class>Mage_Core_Model_Resource_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+
+			</bhargav_accordion_setup>
+		</resources>
+	</global>
+</config>
