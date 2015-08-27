@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<menu>
+		<bhargav_accordion translate="title" module="bhargav_accordion">
+			<title>Accordions</title>
+			<sort_order>75</sort_order>
+			<depends>
+				 <module>Bhargav_Accordion</module>
+			</depends>
+			<children>
+				<accordion translate="title" module="bhargav_accordion">
+					<title>Manage Accordions</title>
+					<sort_order>10</sort_order>
+					<action>bhargav_accordion_admin/accordion</action>
+				</accordion>
+			</children>
+		</bhargav_accordion>
+	</menu>
+	<acl>
+        <resources>
+            <admin>
+                <children>
+                    <bhargav_accordion translate="title"
+                            module="bhargav_accordion">
+                        <title>Accordion Directory</title>
+                        <sort_order>75</sort_order>
+                        <children>
+                            <accordion translate="title" 
+                                    module="bhargav_accordion">
+                                <title>Manage Accordions</title>
+                            </accordion>
+                        </children>
+                    </bhargav_accordion>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

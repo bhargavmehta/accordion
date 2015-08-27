@@ -7,11 +7,25 @@
 		</Bhargav_Accordion>
 	</modules>
 	<global>
+		<blocks>
+			<bhargav_accordion_adminhtml>
+				<class>Bhargav_Accordion_Block_Adminhtml</class>
+			</bhargav_accordion_adminhtml>
+		</blocks>
+		<helpers>
+			<bhargav_accordion>
+				<class>
+					Bhargav_Accordion_Helper
+				</class>
+			</bhargav_accordion>
+		</helpers>
 		<models>
 			<bhargav_accordion>
-				<resourceModel>bhargav_accordion_resource</resourceModel>
-			</bhargav_accordion>
+			<class>Bhargav_Accordion_Model</class>
+			<resourceModel>bhargav_accordion_resource</resourceModel>
+		</bhargav_accordion>
 			<bhargav_accordion_resource>
+				<class>Bhargav_Accordion_Model_Rersource</class>
 				<entities>
 					<accordion>
 						<table>bhargav_accordion_accordion</table>
@@ -32,4 +46,16 @@
 			</bhargav_accordion_setup>
 		</resources>
 	</global>
+	<admin>
+		<routers>
+			<bhargav_accordion_admin>
+				<use>admin</use>
+				<args>
+					<module>Bhargav_Accordion_Adminhtml</module>
+					<frontname>accordion-admin</frontname>
+				</args>
+			</bhargav_accordion_admin>
+		</routers>
+	</admin>
+
 </config>
