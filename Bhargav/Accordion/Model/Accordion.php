@@ -6,7 +6,7 @@ class Bhargav_Accordion_Model_Accordion extends Mage_Core_Model_Abstract
 {
 	const VISIBILITY_HIDDEN = '0';
     const VISIBILITY_DIRECTORY = '1';
-	public function _construct(argument)
+	protected function _construct()
 	{
 		# code...
 		$this->_init('bhargav_accordion/accordion');

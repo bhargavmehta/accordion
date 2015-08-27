@@ -1,92 +1,110 @@
 <?php
-/**
-* 
-*/
-class Bhargav_Accordion_Adminhtml_AccordionController extends Mage_Adminhtml_Controller_Action
+class Bhargav_Accordion_Adminhtml_AccordionController 
+extends Mage_Adminhtml_Controller_Action
 {
-	
-	public function indexAction(){
-		$accordionBlock = $this->getLayout()->createBlock('bhargav_accordion_adminhtml/accordion');
-		$this->loadLayout()
-		->_addContent($accordionBlock)
-		->renderLayout();
-	}
+	 /**
+     * Instantiate our grid container block and add to the page content.
+     * When accessing this admin index page we will see a grid of all
+     * brands currently available in our Magento instance, along with
+     * a button to add a new one if we wish.
+     */
+	 public function indexAction(){
+		// instantiate the grid container
+	 	$accordionBlock = $this->getLayout()->createBlock('bhargav_accordion_adminhtml/accordion');
+
+		// add the grid container as the only item on this page
+	 	$this->loadLayout()
+	 	->_addContent($accordionBlock)
+	 	->renderLayout();
+	 }
+
+	 /**
+     * This action handles both viewing and editing of existing brands.
+     */
+
+ public function editAction(){
+ 	 /**
+     * retrieving existing brand data if an ID was specified,
+     * if not we will have an empty Brand entity ready to be populated.
+     */
+ 	$accordion = Mage::getModel('bhargav_accordion/accordion');
+        if ($accordionId = $this->getRequest()->getParam('id', false)) {
+            $accordion->load($accordionId);
+
+            if ($accordion->getId() < 1) {
+                $this->_getSession()->addError(
+                    $this->__('This accordion no longer exists.')
+                );
+                return $this->_redirect(
+                    'bhargav_accordion_admin/accordion/index'
+                );
+            }
+        }
+        // process $_POST data if the form was submitted
+ 	if($postData = $this->getRequest()->getPost('accordionData')){
+ 		try {
+ 			$accordion->addData($postData);
+ 			$accordion->save();
+ 			$this->_getSession()->addSuccess($this->__('The accordion is saved.'));
+ 			return $this->_redirect('bhargav_accordion_admin/accordion/edit',array('id' => $accordion->getId()));
+
+ 		} catch (Exception $e) {
+ 			Mage::logException($e);
+ 			$this->_getSession()->addError($e->getMessage());
+ 		}
+ 	}
+
+ 	Mage::register('current_accordion', $accordion);
+
+ 	$accordionEditBlock = $this->getLayout()->createBlock('bhargav_accordion_adminhtml/accordion_edit');
+
+ 	$this->loadLayout()
+ 	->_addContent($accordionEditBlock)
+ 	->renderLayout();
 
 
-	public function editAction(){
-		$accordion = Mage::getModel('bhargav_accordion/accordion');
-		if($accordionId = $this->getRequest()->getParam('id',false)){
-			$accordion->load($accordionId);
-			if($accordion->getId()<1){
-				$this->_getSession()->addError($this->__('This accordion no longer exists.'));
-				return $this->_redirect('bhargav_accordion_admin/accordion/index');
-			}
+ }
 
-		}
-		if($postData = $this->getRequest()->getPost('accordionData')){
-			try {
-				$accordion->addData($postData);
-				$accordion->save();
-				$this->_getSession()->addSuccess($this->__('The accordion is saved.'));
-				return $this->_redirect('bhargav_accordion_admin/accordion/edit',array('id' => $accordion->getId()));
+ public function deleteAction(){
+ 	$accordion = Mage::getModel('bhargav_accordion/accordion');
 
-			} catch (Exception $e) {
-				Mage::logException($e);
-				$this->_getSession()->addError($e->getMessage());
-			}
-		}
+ 	if($accordionId = $this->getRequest()->getParam('id', false)){
+ 		$accordion->load($accordionId);
+ 	}
+ 	if($accordion->getId()<1){
+ 		$this->_getSession()->addError($this->__('This accordion no longer exists.'));
+ 		return $this->_redirect('bhargav_accordion_admin/accordion/index');
+ 	}
 
-		Mage::register('current_accordion', $accordion);
+ 	try {
 
-		$accordionEditBlock = $this->getLayout()->createBlock('bhargav_accordion_adminhtml/accordion_edit');
+ 		$accordion->delete();
+ 		$this->_getSession()->addSuccess($this->__('The Accordion has been deleted.'));
 
-		$this->loadLayout()
-		->_addConten($accordionEditBlock)
-		->renderLayout();
+ 	} catch (Exception $e) {
+ 		Mage::logException($e);
+ 		$this->_getSession()->addError($e->getMessage());
+ 	}
+ 	return $this->_redirect('bhargav_accordion_admin/accordion/index');
 
+ }
 
-	}
+ protected function _isAllowed(){
 
-	public function deleteAction(){
-		$accordion = Mage::getModel('bhargav_accordion/accordion');
-
-		if($accordionId = $this->getRequest()->getParam('id', false)){
-			$accordion->load($accordionId);
-		}
-		if($accordion->getId()<1){
-			$this->_getSession()->addError($this->__('This accordion no longer exists.'));
-			return $this->_redirect('bhargav_accordion_admin/accordion/index');
-		}
-
-		try {
-
-			$accordion->delete();
-			$this->_getSession()->addSuccess($this->__('The Accordion has been deleted.'));
-
-		} catch (Exception $e) {
-			Mage::logException($e);
-			$this->_getSession()->addError($e->getMessage());
-		}
-		return $this->_redirect('bhargav_accordion_admin/accordion/index');
-
-	}
-	
-	protected function _isAllowed(){
-
-		$actionName = $this->getRequest()->getActionName();
-		switch ($actionName) {
-			case 'index':
-			case 'edit':
-			case 'delete':
+ 	$actionName = $this->getRequest()->getActionName();
+ 	switch ($actionName) {
+ 		case 'index':
+ 		case 'edit':
+ 		case 'delete':
                 // intentionally no break
-			default:
-			$adminSession = Mage::getSingleton('admin/session');
-			$isAllowed = $adminSession
-			->isAllowed('bhargav_accordion/accordion');
-			break;
-		}
+ 		default:
+ 		$adminSession = Mage::getSingleton('admin/session');
+ 		$isAllowed = $adminSession
+ 		->isAllowed('bhargav_accordion/accordion');
+ 		break;
+ 	}
 
-		return $isAllowed;
-	}
+ 	return $isAllowed;
+ }
 }
 

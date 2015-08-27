@@ -27,7 +27,7 @@ class Bhargav_Accordion_Block_Adminhtml_Accordion_Edit_Form extends Mage_Adminht
                 'legend' => $this->__('Accordion Details')
             )
         );
-        $accordionSingleton = Mage::Singleton('bhargav_accordion/accordion');
+        $accordionSingleton = Mage::getSingleton('bhargav_accordion/accordion');
 
         $this->_addFieldsToFieldset($fieldset,array(
         		'title' => array(
@@ -48,14 +48,14 @@ class Bhargav_Accordion_Block_Adminhtml_Accordion_Edit_Form extends Mage_Adminht
             ),
             'page' => array(
                 'label' => $this->__('Page'),
-                'input' => 'number',
+                'input' => 'text',
                 'required' => true,
             ),
 
         	));
          return $this;
 	}
-	protected function _addFieldsToFieldset(Varien_Data_Form_Element_Fieldset $fieldset, $fields)){
+	protected function _addFieldsToFieldset(Varien_Data_Form_Element_Fieldset $fieldset, $fields){
 		$requestData = new Varien_Object($this->getRequest()->getPost('accordionData'));
 		foreach ($fields as $name => $_data) {
 			 if ($requestValue = $requestData->getData($name)) {

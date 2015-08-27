@@ -3,15 +3,32 @@
 <config>
 	<modules>
 		<Bhargav_Accordion>
+			   <!--
+            this is the version number our module is currently at. in order
+            for setup scripts to run, their version number must be less than 
+            or equal to this value.
+            
+            as we add upgrade scripts, we increment this value. The next time
+            your Magento instance is accessed, Magento will compare values in
+            DB table 'core_resource' against this value. If the DB is lower, 
+            it will attempt to run any setup scripts for the module and then 
+            update the database table to match this value.
+            -->
 			<version>0.0.1</version>
 		</Bhargav_Accordion>
 	</modules>
 	<global>
+		  <!-- 
+        add an adminhtml block definition 
+        -->
 		<blocks>
 			<bhargav_accordion_adminhtml>
 				<class>Bhargav_Accordion_Block_Adminhtml</class>
 			</bhargav_accordion_adminhtml>
 		</blocks>
+		 <!-- 
+        add a helper definition for use in adminhtml.xml menu translation 
+        -->
 		<helpers>
 			<bhargav_accordion>
 				<class>
@@ -20,10 +37,21 @@
 			</bhargav_accordion>
 		</helpers>
 		<models>
+
+            <!-- 
+            this is the Model alias referred to in install-0.0.1.php 
+            -->
 			<bhargav_accordion>
+				 <!-- 
+                this tells Magento where to find Models for this module 
+                -->
 			<class>Bhargav_Accordion_Model</class>
 			<resourceModel>bhargav_accordion_resource</resourceModel>
 		</bhargav_accordion>
+
+            <!-- 
+            this alias must match the above <resourceModel/> value 
+            -->
 			<bhargav_accordion_resource>
 				<class>Bhargav_Accordion_Model_Rersource</class>
 				<entities>
@@ -52,7 +80,7 @@
 				<use>admin</use>
 				<args>
 					<module>Bhargav_Accordion_Adminhtml</module>
-					<frontname>accordion-admin</frontname>
+					<frontName>accordion-admin</frontName>
 				</args>
 			</bhargav_accordion_admin>
 		</routers>
