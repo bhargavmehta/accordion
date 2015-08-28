@@ -30,24 +30,24 @@ $table->addColumn(
         'unsigned' => true,
         'nullable'=> false,
         'primary' => true
-    )
-);
+        )
+    );
 $table->addColumn(
     'created_at',
     Varien_Db_Ddl_Table::TYPE_DATETIME,
     null,
     array(
         'nullable' => false,
-    )
-);
+        )
+    );
 $table->addColumn(
     'updated_at',
     Varien_Db_Ddl_Table::TYPE_DATETIME,
     null,
     array(
         'nullable' => false,
-    )
-);
+        )
+    );
 
 $table->addColumn(
     'title',
@@ -55,32 +55,39 @@ $table->addColumn(
     null,
     array(
         'nullable' => false,
-    )
-);
+        )
+    );
 $table->addColumn(
     'text',
     Varien_Db_Ddl_Table::TYPE_TEXT,
     null,
     array(
         'nullable' => false,
-    )
-);
+        )
+    );
 $table->addColumn(
     'visibility',
     Varien_Db_Ddl_Table::TYPE_BOOLEAN,
     null,
     array(
         'nullable' => false,
-    )
-);
+        )
+    );
+$table->addColumn(
+    'store_id', 
+    Varien_Db_Ddl_Table::TYPE_TEXT, 63, array(
+        'nullable' => true,
+        'default' => null,
+        )
+    );
+
 $table->addColumn(
     'page',
-    Varien_Db_Ddl_Table::TYPE_INTEGER,
-    null,
-    array(
-        'nullable' => false,
-    )
-);
+    Varien_Db_Ddl_Table::TYPE_TEXT, 63, array(
+        'nullable' => true,
+        'default' => null,
+        )
+    );
 /**
  * These two important lines are often missed.
  */
