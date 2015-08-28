@@ -22,10 +22,14 @@
         add an adminhtml block definition 
     -->
     <blocks>
-    	<bhargav_accordion_adminhtml>
-    		<class>Bhargav_Accordion_Block_Adminhtml</class>
-    	</bhargav_accordion_adminhtml>
-    </blocks>
+        <bhargav_accordion>
+            <class>Bhargav_Accordion_Block</class>
+        </bhargav_accordion>
+        <bhargav_accordion_adminhtml>
+          <class>Bhargav_Accordion_Block_Adminhtml</class>
+      </bhargav_accordion_adminhtml>
+
+  </blocks>
 		 <!-- 
         add a helper definition for use in adminhtml.xml menu translation 
     -->
@@ -74,6 +78,15 @@
     	</bhargav_accordion_setup>
     </resources>
 </global>
+<frontend>
+    <layout>
+        <updates>
+            <bhargav_accordion>
+                <file>bhargav_accordion.xml</file>
+            </bhargav_accordion>
+        </updates>
+    </layout>
+</frontend>
 <admin>
 	<routers>
 		<bhargav_accordion_admin>

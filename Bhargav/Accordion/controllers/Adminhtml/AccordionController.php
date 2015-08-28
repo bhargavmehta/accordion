@@ -75,8 +75,8 @@ if($postData = $this->getRequest()->getPost('accordionData')){
 
 Mage::register('current_accordion', $accordion);
 
-$accordionEditBlock = $this->getLayout()->createBlock('bhargav_accordion_adminhtml/accordion_edit');
 
+$accordionEditBlock = $this->getLayout()->createBlock('bhargav_accordion_adminhtml/accordion_edit');
 $this->loadLayout()
 ->_addContent($accordionEditBlock)
 ->renderLayout();
